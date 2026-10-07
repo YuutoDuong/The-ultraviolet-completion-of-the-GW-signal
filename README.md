@@ -3,7 +3,7 @@
 Code and data products for
 
 > K. Duong, *The ultraviolet completion of the gravitational-wave signal of primordial black
-> hole reheating: clustering, shot noise and dissipation*, arXiv:XXXX.XXXXX (2026).
+> hole reheating: clustering, shot noise and dissipation*, arXiv: TBU.
 
 Light primordial black holes (PBHs) can dominate the early Universe and reheat it when they
 evaporate. The gravitational waves (GWs) induced at evaporation depend on how the PBH density
