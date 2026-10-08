@@ -1,0 +1,12 @@
+R_shift = GW[non-linear shell spectrum] / (kappa_E^2 GW[linear template]), t = 7R
+case                                        delta  kappa_E  R_shift  kR_peak lin -> NL
+top hat                                      0.10   0.9550    1.021     2.68 ->   2.68
+top hat                                      0.30   0.8743    1.053     2.68 ->   2.68
+top hat                                      1.00   0.6779    1.161     2.68 ->   2.29
+top hat                                      3.00   0.4269    1.374     2.68 ->   1.80
+top hat                                     10.00   0.1957    1.816     2.68 ->   1.31
+top hat                                     30.00   0.0814    2.406     2.68 ->   1.31
+top hat                                    100.00   0.0288    2.938     2.68 ->   1.21
+release: fiducial 1e4 g, no puff            15.64   0.3731    1.590     2.11 ->   1.21
+release: fiducial 1e4 g, puff 1.8            3.26   0.7204    1.162     2.11 ->   1.66
+release: saturated 1e2 g (beta=1e-2)        41.75   0.1984    2.201     2.11 ->   1.12
