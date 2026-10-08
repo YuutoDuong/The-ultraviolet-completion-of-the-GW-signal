@@ -1,5 +1,7 @@
 # The ultraviolet completion of the GW signal of PBH reheating: code
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23237684.svg)](https://doi.org/10.5281/zenodo.23237684)
+
 Code and data products for
 
 > K. Duong, *The ultraviolet completion of the gravitational-wave signal of primordial black
@@ -125,8 +127,8 @@ See `papers/data/NOTICE.md`. If you use these files, cite the original papers.
 
 If you use this code, please cite the paper above (the arXiv number will be added on
 posting). Repository:
-<https://github.com/YuutoDuong/The-ultraviolet-completion-of-the-GW-signal>; a Zenodo
-archive with a DOI will follow.
+<https://github.com/YuutoDuong/The-ultraviolet-completion-of-the-GW-signal>, archived at
+Zenodo: [doi:10.5281/zenodo.23237684](https://doi.org/10.5281/zenodo.23237684).
 
 ## License
 
