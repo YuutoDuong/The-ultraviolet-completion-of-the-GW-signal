@@ -137,5 +137,4 @@ keep their CC BY 4.0 licenses.
 
 ## Contact
 
-Khoa Duong, Phenikaa Institute for Advanced Study, Phenikaa University, Hanoi, Vietnam
-(ORCID [0009-0009-9409-3298](https://orcid.org/0009-0009-9409-3298)).
+Khoa Duong, email: yuutoduong@gmail.com
