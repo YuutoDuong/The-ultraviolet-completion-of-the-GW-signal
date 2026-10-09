@@ -1,0 +1,110 @@
+================================================================================================
+MODULE D  damping.py
+================================================================================================
+  [PASS] D1 neutrino decoupling Gamma_nu = H  [MeV]                            1.485   in [1, 2]
+  [PASS] D2 EW-plasma k_D/aH at 1e5 GeV vs closed form (ratio)                     1   in [0.999, 1.001]
+  [PASS] D3 damping exponent at 10 MeV (neutrinos)                                 5   in [5, 5]
+  [PASS] D3 damping exponent at 1e5 GeV (plasma)                                   1   in [1, 1]
+  [PASS] D4 neutrino regime: d ln(k_D/aH)/d ln T  (expect ~3/2 + g* drift)        1.823   in [1.3, 2.2]
+================================================================================================
+MODULE C  suddenness.py
+================================================================================================
+  [PASS] C1 single hole: numeric FT / Gamma(1/3)/3 (w tau)^-1/3 at w tau=1e+02            1   in [0.99, 1.01]
+  [PASS] C1 single hole: numeric FT / Gamma(1/3)/3 (w tau)^-1/3 at w tau=1e+03            1   in [0.99, 1.01]
+  [PASS] C1 single hole: numeric FT / Gamma(1/3)/3 (w tau)^-1/3 at w tau=1e+04            1   in [0.99, 1.01]
+  [PASS] C2 mono S(x) / (sqrt(2/3) x)^(-1/3)  [Inomata 2020 via 2605.21474 App.]        1.147   in [1, 1.25]
+  [PASS] C3 Choptuik coherent slope d ln S/d ln k  (universal -4/3)           -1.333   in [-1.36, -1.3]
+  [PASS] C4 Choptuik S_coh x^(4/3) / kappa_0 (2605.21474: 2.3)                 1.091   in [0.85, 1.25]
+  [PASS] C5 Choptuik shot-noise slope (single-hole -1/3)                     -0.3333   in [-0.34, -0.32]
+  [PASS] C5 S_inc^2 = 0.797 (w tau(<M0>))^(-2/3) exactly                    4.44e-16   in [0.00e+00, 1.00e-09]
+  [PASS] C6 Stage-0 route / characteristic-function route at x=100             1.189   in [0.8, 1.25]
+  [PASS] C7 log-normal sigma=0.1 at x<=2: S_coh / S_mono (coherent limit)        0.031   in [0.000, 0.300]
+  [PASS] C7 log-normal sigma=0.1 far above k_univ: universal slope (-4/3)       -1.333   in [-1.4, -1.27]
+================================================================================================
+MODULE B  clusters.py
+================================================================================================
+  [PASS] B1 T_S(0) = 1/5                                                         0.2   in [0.2, 0.2]
+  [PASS] B1 kappa^2 T_S(kappa) -> C = 9/8 at kappa = 1e6                       1.125   in [1.124, 1.126]
+  [PASS] B2 sigma^2(N) N / D^2 at N = 100 (2412.01890 Eq. sigmaM2, mu = 1)       0.9977   in [0.98, 1]
+  [PASS] B3 N_* / (D/delta_c)^2  (transfer function lowers it slightly)       0.7656   in [0.6, 1]
+  [PASS] B4 Press-Schechter: int dF = 1                                            1   in [0.999, 1.001]
+  [PASS] B4 Press-Schechter: int dF b = 1                                          1   in [0.99, 1.01]
+  [PASS] B4 mass-weighted <N>/N_*  (white noise: 1)                           0.9339   in [0.85, 1.05]
+  [PASS] B5 2412.01890 Eq. R_cl prefactor (they quote ~1e6) [log10]            5.798   in [5.5, 6.5]
+  [PASS] B5 2412.01890 Eq. sigma_v prefactor (they quote ~1e-3) [log10]       -3.049   in [-3.5, -2.5]
+  [PASS] B6 adiabatic puff-up factor for clusters formed at evaporation        1.799   in [1.5, 2.2]
+  [PASS] B7 cluster virial velocity at the fiducial point (non-relativistic)     4.26e-04   in [1.00e-05, 1.00e-02]
+================================================================================================
+MODULE E  acoustic_gw.py
+================================================================================================
+  [PASS] E1 P_v / P_delta = c_s^2/(2 Gamma^2) = 3/32                         0.09375   in [0.09375, 0.09375]
+  [PASS] E2 Upsilon(X -> 0) = 1  (p = 1)                                           1   in [0.9999, 1]
+  [PASS] E2 Upsilon(X) * 2X -> 1 at X = 1e6                                        1   in [0.99, 1.01]
+  [PASS] E3 power law P_v = z^2.000: quadrature / closed form               6.44e-15   in [0.00e+00, 1.00e-03]
+  [PASS] E3 power law P_v = z^2.333: quadrature / closed form               6.44e-15   in [0.00e+00, 1.00e-03]
+  [PASS] E3 power law P_v = z^3.000: quadrature / closed form               6.44e-15   in [0.00e+00, 1.00e-03]
+  [PASS] E4 narrow velocity peak q0: GW peak / (2 c_s q0)                          1   in [0.995, 1.005]
+  [PASS] E5 linear mono power law: ours / [2 x Omega_res x Theta_uv]  (2409.12125)       0.9998   in [0.99, 1.01]
+================================================================================================
+MODULE E2  sigw_kernel.py  (independent induced-GW kernel)
+================================================================================================
+  [PASS] E2-1 closed-form C,S vs oscillatory quadrature, q=+3e-01 c=5 (max rel err)      9.5e-11   in [0.0e+00, 1.0e-06]
+  [PASS] E2-1 closed-form C,S vs oscillatory quadrature, q=-7e-01 c=2 (max rel err)      9.2e-11   in [0.0e+00, 1.0e-06]
+  [PASS] E2-1 closed-form C,S vs oscillatory quadrature, q=+1e-03 c=50 (max rel err)      2.9e-11   in [0.0e+00, 1.0e-06]
+  [PASS] E2-2 resonant-only kernel / 2409.12125 Eq. (4.5) at k/k_uv=0.3       0.9994   in [0.99, 1.01]
+  [PASS] E2-3 full kernel / resonant-only at k/k_uv=0.3  (2409.12125: 2)        2.009   in [1.98, 2.02]
+  [PASS] E2-2 resonant-only kernel / 2409.12125 Eq. (4.5) at k/k_uv=0.9        1.002   in [0.99, 1.01]
+  [PASS] E2-3 full kernel / resonant-only at k/k_uv=0.9  (2409.12125: 2)        1.998   in [1.98, 2.02]
+  [PASS] E2-4 sound-shell / full induced-GW kernel, power law, k/k_uv=0.3       0.9962   in [0.99, 1.01]
+  [PASS] E2-4 sound-shell / full induced-GW kernel, power law, k/k_uv=0.9       0.9994   in [0.99, 1.01]
+================================================================================================
+INTEGRATION  phase_a.py channels
+================================================================================================
+  [PASS] P1 LIN-UV peak at the 2012.08151 bound reproduces Delta N_eff level, M=1e+02     7.58e-06   in [1.00e-06, 3.00e-05]
+  [PASS] P2 NL-A / LIN-NL (clusters above conservative cut), M=1e+02        1.75e+02   in [1.00e+01, 1.00e+03]
+  [PASS] P3 NL-A / LIN-UV (linear extrapolation overshoots), M=1e+02 [log10]        -6.44   in [-12.00, -5.00]
+  [PASS] P4 Choptuik SHOT / LIN-NL (shot noise escapes suppression), M=1e+02 [log10]         2.63   in [2.00, 8.00]
+  [PASS] P1 LIN-UV peak at the 2012.08151 bound reproduces Delta N_eff level, M=1e+04     7.14e-06   in [1.00e-06, 3.00e-05]
+  [PASS] P2 NL-A / LIN-NL (clusters above conservative cut), M=1e+04        1.84e+02   in [1.00e+01, 1.00e+03]
+  [PASS] P3 NL-A / LIN-UV (linear extrapolation overshoots), M=1e+04 [log10]        -8.17   in [-12.00, -5.00]
+  [PASS] P4 Choptuik SHOT / LIN-NL (shot noise escapes suppression), M=1e+04 [log10]         4.46   in [2.00, 8.00]
+  [PASS] P5 cluster channel at its peak: sound-shell / full induced-GW kernel       0.9984   in [0.99, 1.01]
+  [PASS] P6 Choptuik shot_ratio = <M>/M_mw (true number density of holes)       0.9299   in [0.92, 0.94]
+  [PASS] P7 M_mw = (3 t_eff)^(1/3): benchmark M_in is the mass-weighted mean [rel. diff]      0.0e+00   in [0.0e+00, 1.0e-09]
+  [PASS] P8 width scan: 5-sigma truncation vs none, worst NL-A ratio (sigma<=3e-3)       0.0000   in [0.0000, 0.0200]
+================================================================================================
+MODULE F  hydro1d.py, burst_efficiency.py  (non-linear cluster burst)
+================================================================================================
+  [PASS] F1 uniform fluid at rest stays static, max(|v|, |rho-1|)            4.4e-16   in [0.0e+00, 1.0e-12]
+  [PASS] F2 linear top hat: E_ac(t=7R) / exact delta0^2 V/8 (numerical dissipation)        0.921   in [0.85, 1]
+  [PASS] F3 energy conservation with the Hawking source [rel. error]         4.0e-14   in [0.0e+00, 1.0e-06]
+  [PASS] F4 kappa(delta0=3) at t=7R, 150 cells/R (scan at 200: 0.427)         0.4309   in [0.39, 0.47]
+  [PASS] F5 fit kappa(delta) vs hydro_scan top hats (t=25R), worst rel. deviation      0.03117   in [0, 0.04]
+  [PASS] F6 release histories follow the fit at 0.21 delta_tot, worst rel. deviation      0.02986   in [0, 0.04]
+  [PASS] F7 GW shift fit (1+delta_tot/8.1)^0.43 vs the three release runs, worst rel. dev.     0.007507   in [0, 0.02]
+  [PASS] F8 Clusters.kappa_burst(N_*) vs the hydro release runs (same delta_tot), worst rel.      0.03107   in [0, 0.06]
+  [PASS] F9 cluster channel with module F / without, fiducial 1e4 g (integral)       0.2867   in [0.2, 0.4]
+================================================================================================
+MODULE L  sound_lifetime.py  (shock-limited sound)
+================================================================================================
+  [PASS] L1 Upsilon(X->0) with cutoff y_end=1.01: / (1 - 1/y_end)                  1   in [0.999, 1.001]
+  [PASS] L1 Upsilon(X->0) with cutoff y_end=2.0: / (1 - 1/y_end)                   1   in [0.999, 1.001]
+  [PASS] L2 Upsilon with y_end = 1e6 vs no cutoff, worst rel. deviation (X = 1e-3..1e3)            0   in [0, 0.001]
+  [PASS] L3 upsilon_sh(H tau = 1e-4) / 1e-4  (short-lived source: ~ H tau)       0.9999   in [0.999, 1]
+  [PASS] L4 P_GW with y_end=1.5, no damping / P_GW x (1 - 1/1.5)  (exact)      0.0e+00   in [0.0e+00, 1.0e-12]
+  [PASS] L5 Gamma U_f^2 of NL-A+F (energy) on the bound at 1e4 g vs Table III K = 0.0099     0.009948   in [0.009, 0.0105]
+  [PASS] L6 d_* k_eva x xi x_cl / (4 pi Delta/3)^(1/3)  (identity)                 1   in [1, 1]
+  [PASS] L7 H tau_sh = d_*/U_f, NL-A+F on the bound at 1e4 g (sound shocks early)     5.10e-03   in [2.00e-03, 1.00e-02]
+================================================================================================
+MODULES G, H  detectors.py (Schmitz PLI curves), relics.py (Holst et al. relics)
+================================================================================================
+  [PASS] G1 BBO PLI minimum h2 Omega (SNR 1, 1 yr; Schmitz Fig.)            8.46e-18   in [5.00e-18, 1.50e-17]
+  [PASS] G2 LISA PLI minimum h2 Omega (SNR 1, 1 yr)                         1.65e-14   in [1.00e-14, 3.00e-14]
+  [PASS] G3 a power law at 10x the BBO curve's tangent point gives R = 10           10   in [9.99, 10.01]
+  [PASS] H1 relic grid: their benchmark (1e6 g, t_i = 1e-30 s) is excluded [log10 L]         5.88   in [0.00, 10.00]
+  [PASS] H2 t_i(M, beta) growth-matched to H_eq: coefficient (2/3)^1.5 (2 sqrt2/3)       0.5132   in [0.512, 0.514]
+  [PASS] H3 merged-relic limit at 1e6 g: beta_relic                         5.26e-05   in [3.00e-05, 1.00e-04]
+  [PASS] H4 no relic limit up to beta = 1 at 1e3 g [max log10 L]              -30.00   in [-40.00, 0.00]
+================================================================================================
+PHASE A VALIDATION: 80/80 checks passed
+================================================================================================
