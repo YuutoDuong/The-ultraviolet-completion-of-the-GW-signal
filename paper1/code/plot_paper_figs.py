@@ -108,12 +108,13 @@ def fig3():
         chF, _ = pa.channel_spectra(1e4, 1e-6, pop, hydro="energy")
         z = np.geomspace(1.0, 3 * info["xPBH"], 4000)
         xD = float(dm.kD_over_aH(info["s"]["T_evap"]))
-        # the scales, labelled just above the frame (k_D and k_PBH are 10% apart at 10^4 g)
+        # the scales, labelled just above the frame.  The panel ends at k_PBH, where every spectrum
+        # ends; k_D is 10% below it at 10^4 g, so the two share the label at the right edge.
         for xv, lab, ha in ((info["xNL"], r"$k_{\rm NL}$", "center"), (info["xcl"], r"$k_{\rm cl}$", "center"),
-                            (xD, r"$k_D$", "right" if xD < info["xPBH"] else "left"),
-                            (info["xPBH"], r"$k_{\rm PBH}$", "left" if xD < info["xPBH"] else "right")):
-            ax.axvline(xv, color="0.65", lw=0.6, ls=":", zorder=1)
+                            (info["xPBH"], r"$k_D,\,k_{\rm PBH}$", "right")):
             ax.text(xv, 1.015, lab, transform=ax.get_xaxis_transform(), fontsize=7.5, ha=ha, va="bottom")
+        for xv in (info["xNL"], info["xcl"], xD):
+            ax.axvline(xv, color="0.65", lw=0.6, ls=":", zorder=1)
         for name, ls, lw in (("LIN-UV", "--", 1.2), ("NL-B", "-", 1.5), ("NL-A", "-", 1.5), ("SHOT", "-", 1.5)):
             ax.loglog(z, fs.until_cutoff(z, ch[name][0](z)), color=COL[name], ls=ls, lw=lw, label=name, zorder=3)
         for name in ("NL-A", "NL-B"):
@@ -122,7 +123,7 @@ def fig3():
         ax.set_title(("monochromatic" if pop == "mono" else "critical collapse (Choptuik)") +
                      r", $M_{\rm in}=10^4$ g, $\beta_f=10^{-6}$", pad=14)
         ax.set_xlabel(r"$k/k_{\rm eva}$")
-        ax.set_xlim(0.5, 2e7)
+        ax.set_xlim(0.5, info["xPBH"])   # the panel ends at k_PBH, where the spectra end
         ax.set_ylim(1e-19, 1e5)          # low enough that every spectrum is seen to end at k_PBH
         ax.set_yticks(10.0 ** np.arange(-16, 5, 4))
         ax.set_yticks(10.0 ** np.arange(-19, 6), minor=True)
@@ -158,7 +159,7 @@ def fig4():
     ax.text(betas[0] * 1.3, 1.8, "sound energy = total energy", fontsize=7, va="bottom")
     ax.axvline(1.1e-6, color="0.45", ls=":", lw=0.7)
     ax.text(1.3e-6, 1.5e-6, "published\nbound", fontsize=7, color="0.3", va="bottom")
-    ax.set_xlim(betas[0] / 1.5, betas[-1] * 1.5)
+    ax.set_xlim(betas[0], betas[-1])     # the curves span the frame
     ax.set_ylim(3e-7, 3e15)
     ax.set_yticks(10.0 ** np.arange(-6, 16, 3))
     ax.set_yticks(10.0 ** np.arange(-6, 16), minor=True)

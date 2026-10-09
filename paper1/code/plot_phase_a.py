@@ -6,10 +6,11 @@ monochromatic and a critical-collapse population.  The spectra are recomputed he
 phase_a.run_benchmark on a finer frequency grid (NX points; phase_a.py stores 90, enough for
 the peaks of Table IV) so that the curves are smooth.  Each spectrum ends at its cutoff,
 k = 2 c_s k_max (k_max = k_PBH, or k_NL for LIN-NL), above which no pair of sound waves can
-source it (figstyle.until_cutoff).  The axis reaches down to 1e-50 so that the suppressed
-critical-collapse spectra are seen whole, down to their cutoff.  The detector sensitivity curves are drawn up to
-the Delta N_eff limit, above which no signal is allowed; where a tabulated band ends below
-it (DECIGO and BBO at 10 Hz, CE at 5 Hz) a vertical line marks the edge of the band.
+source it (figstyle.until_cutoff); the frequency axis ends there too.  The Omega axis reaches
+down to 1e-50 so that the suppressed critical-collapse spectra are seen whole, down to their
+cutoff.  The detector sensitivity curves are drawn up to the Delta N_eff limit, above which no
+signal is allowed; where a tabulated band ends below it (DECIGO and BBO at 10 Hz, CE at 5 Hz)
+a vertical line marks the edge of the band.
 Fig. 7 (phase_a_beta_scan): integrated signal against beta_f, from results/beta_scan.csv.
 The linear extrapolation grows as beta_f^(16/3) without limit; it is drawn up to TOP_UV and
 ends in an arrow.
@@ -41,8 +42,12 @@ STY = {"base": ("-", 1.5), "LIN-UV": ("--", 1.2), "F": ("-.", 1.1), "puff": (":"
 
 
 def spectra(pop):
-    """{name: (f [Hz], Omega_GW h^2 today)} for Fig. 6; all damped except SHOT-u."""
-    _, f, res, _, _ = pa.run_benchmark(M_FID, B_FID, pop, nx=NX)
+    """
+    ({name: (f [Hz], Omega_GW h^2 today)}, f_cut) for Fig. 6; all damped except SHOT-u.
+    f_cut is the frequency of k = 2 c_s k_PBH, where every spectrum ends.
+    """
+    _, f, res, info, _ = pa.run_benchmark(M_FID, B_FID, pop, nx=NX)
+    fcut = 2.0 / np.sqrt(3.0) * info["xPBH"] * info["s"]["f_eva"]
     _, _, resF, _, _ = pa.run_benchmark(M_FID, B_FID, pop, nx=NX, hydro=True, only=("NL-A", "NL-B"),
                                         damped_only=True)
     out = {n: (f, v[1]) for n, v in res.items()}
@@ -55,7 +60,7 @@ def spectra(pop):
         _, fs_, rs, _, _ = pa.run_benchmark(M_FID, B_FID, pop, nx=NX, hydro=True, lifetime=True,
                                             only=("NL-A", "LIN-NL"), damped_only=True)
         out["NL-A+F-sh"], out["LIN-NL-sh"] = (fs_, rs["NL-A"][1]), (fs_, rs["LIN-NL"][1])
-    return out
+    return out, fcut
 
 
 def below(f, o, ceil, fmin):
@@ -102,11 +107,11 @@ def line(ax, x, y, col, sty, **kw):
 
 
 def fig_spectra():
-    FMIN, YLO, YHI, H = 1e-3, 1e-50, 1e-4, 4.6        # H: figure height [in]
+    FMIN, YLO, YHI, H = 1e-3, 1e-50, 1e-3, 4.6        # H: figure height [in]
     fig, axs = plt.subplots(1, 2, figsize=(fs.WIDE, H), sharey=True)
     fig.subplots_adjust(left=0.085, right=0.99, top=1 - 0.235 / H, bottom=1.15 / H, wspace=0.05)
     for ax, pop in zip(axs, ("mono", "choptuik")):
-        s = spectra(pop)
+        s, fcut = spectra(pop)
         detectors(ax, FMIN)
         ax.axhline(fs.LIMIT, color="k", lw=0.7, ls="-.", zorder=1)
         ax.text(1.4e-3, fs.LIMIT * 2.5, r"$\Delta N_{\rm eff}<0.3$", fontsize=7, va="bottom")
@@ -129,13 +134,13 @@ def fig_spectra():
         line(ax, *s["LIN-NL"], COL["LIN-NL"], "base", zorder=5)
         ax.set_title("monochromatic" if pop == "mono" else "critical collapse (Choptuik)")
         ax.set_xlabel(r"$f$ [Hz]")
-        ax.set_xlim(FMIN, 1e4)
+        ax.set_xlim(FMIN, fcut)                           # the panel ends where the spectra end
         ax.set_xticks(10.0 ** np.arange(-3, 4, 2))       # labels at odd decades: none at the shared edge
-        ax.set_xticks(10.0 ** np.arange(-3, 5), minor=True)
+        ax.set_xticks(10.0 ** np.arange(-3, 4), minor=True)
         ax.set_xticklabels([], minor=True)
         ax.set_ylim(YLO, YHI)
         ax.set_yticks(10.0 ** np.arange(-50, -4, 5))
-        ax.set_yticks(10.0 ** np.arange(-50, -3), minor=True)
+        ax.set_yticks(10.0 ** np.arange(-50, -2), minor=True)
         ax.set_yticklabels([], minor=True)
     axs[0].set_ylabel(r"$\Omega_{\rm GW}h^2$ today")
     # what the right panel shows
@@ -171,7 +176,7 @@ def rising_to(x, y, top):
 def fig_beta():
     rows = list(csv.DictReader(open(os.path.join(OUT, "beta_scan.csv"))))
     fig, axs = plt.subplots(2, 2, figsize=(fs.WIDE, 5.1), sharey=True)
-    fig.subplots_adjust(left=0.102, right=0.99, top=0.96, bottom=0.165, wspace=0.05, hspace=0.32)
+    fig.subplots_adjust(left=0.102, right=0.985, top=0.96, bottom=0.165, wspace=0.06, hspace=0.32)
     curves = (("LIN-UV", "1.0", "LIN-UV"), ("LIN-NL", "1.0", "base"), ("NL-A", "1.0", "base"),
               ("NL-B", "1.0", "base"), ("NL-A+F", "1.0", "F"), ("NL-B+F", "1.0", "F"),
               ("NL-A+F", "1.8", "puff"), ("NL-B+F", "1.8", "puff"))
@@ -196,7 +201,8 @@ def fig_beta():
         ax.text(b_old * 1.25, 2e-27, "published\nbound", fontsize=7, color="0.3", va="bottom")
         ax.text(0.03, 0.95, rf"$M_{{\rm in}}={'1' if M == 1 else f'10^{{{int(round(np.log10(M)))}}}'}$ g",
                 transform=ax.transAxes, va="top", fontsize=8.5)
-        ax.set_xlim(None, 1.6)
+        bs = [float(r["beta"]) for r in sub]
+        ax.set_xlim(min(bs), max(bs))                   # the curves span the frame
         ax.set_ylim(1e-28, 1e3)
         ax.set_yticks(10.0 ** np.arange(-28, 3, 4))
         ax.set_xlabel(r"$\beta_f$")
